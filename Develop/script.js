@@ -1,31 +1,20 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var length = undefined;
+var passwordLength = undefined;
 var uppercase = undefined;
 var lowercase = undefined;
 var numeric = undefined;
 var specialCharacters = undefined;
 
 // Write password to the #password input
-function writePassword() {
- validLength();
- lowercasePrompt();
- uppercasePrompt();
- numericPrompt();
- specialPrompt();
- completionPrompt();
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
 
-}
  function validLength() {
-   length = parseInt(prompt("How long would you like your password to be? it must be between 8 and 128 characters. (please enter a number value)",))
-   if (8>length||length>128||isNaN(length)){
+  passwordLength = parseInt(prompt("How long would you like your password to be? it must be between 8 and 128 characters. (please enter a number value)",))
+   if (8>passwordLength||passwordLength>128||isNaN(passwordLength)){
      window.alert("invalid character length.");
      validLength();
    } else {
-     alert("your password  will be "+length+" characters long.")
+     alert("your password  will be "+passwordLength+" characters long.")
      
    }
    return;
@@ -59,7 +48,7 @@ function writePassword() {
     alert("numbers will not be included");
   };
   return;
- }
+ };
 
  function specialPrompt(){
    specialCharacters = confirm("include special characters? (!@$#%^&*...etc)");
@@ -82,14 +71,39 @@ function writePassword() {
   var lowerLetterArray = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"];
   var numericArray = ["1","2","3","4","5","6","7","8","9"];
   var specialArray = ["!","@","#","$","%","^","&","*","(",")","_","-","+","=",";",":","?",">","<",",","."];
-  var masterArray = undefined
-  switch ()
+  var masterArray = []
+  var childArray = []
 
-};
+  if (numeric===true){
+    masterArray=masterArray.concat(numericArray);
+  };
+  if(uppercase===true){
+    masterArray=masterArray.concat(upperLetterArray);
+  };
+  if (lowercase===true){
+    masterArray=masterArray.concat(lowerLetterArray);
+  };
+  if(specialCharacters===true){
+    masterArray=masterArray.concat(specialArray);
+  };
+  for (let i = 0; i < passwordLength; i++) {
+    childArray.push(masterArray[Math.floor(Math.random()*masterArray.length)]);
+  };
+  return childArray.join("");
+ };
+
+ function writePassword() {
+  validLength();
+  lowercasePrompt();
+  uppercasePrompt();
+  numericPrompt();
+  specialPrompt();
+  completionPrompt();
+   var password = generatePassword();
+   var passwordText = document.querySelector("#password");
+   passwordText.value = password;
+ 
+ }
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-//uppercase
-//lowercase
-//numeric
-//specialCharacters
